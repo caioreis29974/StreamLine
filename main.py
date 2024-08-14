@@ -3,6 +3,7 @@ import json
 import os
 from pytube import YouTube
 
+
 def apply_styles():
     sg.theme('DarkPurple')
 
@@ -28,7 +29,7 @@ def login_layout():
 
 def download_layout():
     return [
-        [sg.Text('Baixar Vídeo do YouTube', font=('Arial', 20), text_color='white', background_color='#2e003e')],
+        [sg.Text('STREAMLINE', font=('Arial', 20), text_color='white', background_color='#2e003e')],
         [sg.Text('Cole o link do vídeo:', text_color='white', background_color='#2e003e'), sg.Input(key='url')],
         [sg.Text('Escolha a resolução:', text_color='white', background_color='#2e003e'), sg.Combo(['720p', '480p', '360p'], key='resolution')],
         [sg.Text('Escolha o diretório:', text_color='white', background_color='#2e003e'), sg.Input(key='folder'), sg.FolderBrowse()],
@@ -63,7 +64,7 @@ def main():
     apply_styles()
 
     layout = registration_layout()
-    window = sg.Window('Aplicativo de Login e Download de Vídeo', layout, size=(400, 300))
+    window = sg.Window('STREAMLINE - Registro', layout, size=(400, 300))
 
     user_data = load_user_data()
 
@@ -78,29 +79,30 @@ def main():
             password = values['password']
             save_user_data(username, password)
             window.close()
-            window = sg.Window('Aplicativo de Login e Download de Vídeo', login_layout(), size=(400, 300))
+            window = sg.Window('STREAMLINE', login_layout(), size=(400, 300))
 
         elif event == 'to_login':
             window.close()
-            window = sg.Window('Aplicativo de Login e Download de Vídeo', login_layout(), size=(400, 300))
+            window = sg.Window('STREAMLINE - Login', login_layout(), size=(400, 300))
 
         elif event == 'Entrar':
             username = values['username']
             password = values['password']
             if user_data and user_data['username'] == username and user_data['password'] == password:
                 window.close()
-                window = sg.Window('Aplicativo de Login e Download de Vídeo', download_layout(), size=(400, 300))
+                window = sg.Window('STREAMLINE - Download', download_layout(), size=(400, 300))
             else:
                 window['message'].update('Usuário ou senha incorretos!')
 
         elif event == 'to_register':
             window.close()
-            window = sg.Window('Aplicativo de Login e Download de Vídeo', registration_layout(), size=(400, 300))
+            window = sg.Window('STREAMLINE', registration_layout(), size=(400, 300))
 
         elif event == 'Baixar':
             url = values['url']
             resolution = values['resolution']
             folder = values['folder']
+            print(f'Caminho do diretório: {folder}')
             message = download_video(url, resolution, folder)
             window['message'].update(message)
 
