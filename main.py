@@ -3,7 +3,6 @@ import json
 import os
 from pytube import YouTube
 
-
 def apply_styles():
     sg.theme('DarkPurple')
 
@@ -75,19 +74,19 @@ def main():
             break
 
         if event == 'Cadastrar':
-            username = values['username']
-            password = values['password']
+            username = values['username'].strip()
+            password = values['password'].strip()
             save_user_data(username, password)
             window.close()
-            window = sg.Window('STREAMLINE', login_layout(), size=(400, 300))
+            window = sg.Window('STREAMLINE - Login', login_layout(), size=(400, 300))
 
         elif event == 'to_login':
             window.close()
             window = sg.Window('STREAMLINE - Login', login_layout(), size=(400, 300))
 
         elif event == 'Entrar':
-            username = values['username']
-            password = values['password']
+            username = values['username'].strip()
+            password = values['password'].strip()
             if user_data and user_data['username'] == username and user_data['password'] == password:
                 window.close()
                 window = sg.Window('STREAMLINE - Download', download_layout(), size=(400, 300))
@@ -96,7 +95,7 @@ def main():
 
         elif event == 'to_register':
             window.close()
-            window = sg.Window('STREAMLINE', registration_layout(), size=(400, 300))
+            window = sg.Window('STREAMLINE - Registro', registration_layout(), size=(400, 300))
 
         elif event == 'Baixar':
             url = values['url']
